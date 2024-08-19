@@ -1,0 +1,45 @@
+{
+  "kind": "collectionType",
+  "collectionName": "articols",
+  "info": {
+    "singularName": "articol",
+    "pluralName": "articols",
+    "displayName": "Articol",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "denumire": {
+      "type": "string"
+    },
+    "descriere": {
+      "type": "text"
+    },
+    "unitate_de_masura": {
+      "type": "enumeration",
+      "enum": [
+        "buc",
+        "ml",
+        "l",
+        "g",
+        "kg",
+        "cm",
+        "m",
+        "altele"
+      ]
+    },
+    "tip": {
+      "type": "enumeration",
+      "enum": [
+        "materie prima",
+        "materiale auxiliare",
+        "produs finit",
+        "marfa",
+        "altele"
+      ]
+    }
+  }
+}
