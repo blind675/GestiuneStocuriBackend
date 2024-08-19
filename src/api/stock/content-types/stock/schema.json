@@ -4,10 +4,11 @@
   "info": {
     "singularName": "stock",
     "pluralName": "stocks",
-    "displayName": "Stock"
+    "displayName": "Stock",
+    "description": ""
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
@@ -19,6 +20,15 @@
     },
     "available_quantity": {
       "type": "decimal"
+    },
+    "price_per_unit": {
+      "type": "decimal"
+    },
+    "provider_name": {
+      "type": "string"
+    },
+    "provider_details": {
+      "type": "text"
     }
   }
 }

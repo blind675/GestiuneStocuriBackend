@@ -843,9 +843,10 @@ export interface ApiStockStock extends Schema.CollectionType {
     singularName: 'stock';
     pluralName: 'stocks';
     displayName: 'Stock';
+    description: '';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     articol: Attribute.Relation<
@@ -854,9 +855,11 @@ export interface ApiStockStock extends Schema.CollectionType {
       'api::articol.articol'
     >;
     available_quantity: Attribute.Decimal;
+    price_per_unit: Attribute.Decimal;
+    provider_name: Attribute.String;
+    provider_details: Attribute.Text;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
       'api::stock.stock',
       'oneToOne',
