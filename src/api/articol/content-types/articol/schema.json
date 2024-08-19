@@ -40,6 +40,20 @@
         "marfa",
         "altele"
       ]
+    },
+    "imagine": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "stocks": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::stock.stock",
+      "mappedBy": "articol"
     }
   }
 }

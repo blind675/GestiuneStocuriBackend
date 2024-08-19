@@ -362,49 +362,6 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
-export interface ApiArticolArticol extends Schema.CollectionType {
-  collectionName: 'articols';
-  info: {
-    singularName: 'articol';
-    pluralName: 'articols';
-    displayName: 'Articol';
-    description: '';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    denumire: Attribute.String;
-    descriere: Attribute.Text;
-    unitate_de_masura: Attribute.Enumeration<
-      ['buc', 'ml', 'l', 'g', 'kg', 'cm', 'm', 'altele']
-    >;
-    tip: Attribute.Enumeration<
-      [
-        'materie prima',
-        'materiale auxiliare',
-        'produs finit',
-        'marfa',
-        'altele'
-      ]
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::articol.articol',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::articol.articol',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -831,6 +788,90 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
+export interface ApiArticolArticol extends Schema.CollectionType {
+  collectionName: 'articols';
+  info: {
+    singularName: 'articol';
+    pluralName: 'articols';
+    displayName: 'Articol';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    denumire: Attribute.String;
+    descriere: Attribute.Text;
+    unitate_de_masura: Attribute.Enumeration<
+      ['buc', 'ml', 'l', 'g', 'kg', 'cm', 'm', 'altele']
+    >;
+    tip: Attribute.Enumeration<
+      [
+        'materie prima',
+        'materiale auxiliare',
+        'produs finit',
+        'marfa',
+        'altele'
+      ]
+    >;
+    imagine: Attribute.Media<'images'>;
+    stocks: Attribute.Relation<
+      'api::articol.articol',
+      'oneToMany',
+      'api::stock.stock'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::articol.articol',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::articol.articol',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiStockStock extends Schema.CollectionType {
+  collectionName: 'stocks';
+  info: {
+    singularName: 'stock';
+    pluralName: 'stocks';
+    displayName: 'Stock';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    articol: Attribute.Relation<
+      'api::stock.stock',
+      'manyToOne',
+      'api::articol.articol'
+    >;
+    available_quantity: Attribute.Decimal;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::stock.stock',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::stock.stock',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -841,7 +882,6 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
-      'api::articol.articol': ApiArticolArticol;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;
@@ -850,6 +890,8 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::articol.articol': ApiArticolArticol;
+      'api::stock.stock': ApiStockStock;
     }
   }
 }
