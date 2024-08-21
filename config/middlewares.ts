@@ -8,6 +8,7 @@ export default [
       enabled: true,
       headers: "*",
       origin: ["http://localhost:5173", "https://gestiune-stocuri.netlify.app"],
+      methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     },
   },
   "strapi::poweredBy",
