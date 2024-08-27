@@ -793,14 +793,14 @@ export interface ApiArticolArticol extends Schema.CollectionType {
   info: {
     singularName: 'articol';
     pluralName: 'articols';
-    displayName: 'Articol';
+    displayName: 'Article';
     description: '';
   };
   options: {
     draftAndPublish: false;
   };
   attributes: {
-    denumire: Attribute.String;
+    denumire: Attribute.String & Attribute.Required & Attribute.Unique;
     descriere: Attribute.Text;
     unitate_de_masura: Attribute.Enumeration<
       ['buc', 'ml', 'l', 'g', 'kg', 'cm', 'm', 'altele']
@@ -830,6 +830,44 @@ export interface ApiArticolArticol extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::articol.articol',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiProviderProvider extends Schema.CollectionType {
+  collectionName: 'providers';
+  info: {
+    singularName: 'provider';
+    pluralName: 'providers';
+    displayName: 'Provider';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    CUI: Attribute.String & Attribute.Required & Attribute.Unique;
+    J: Attribute.String & Attribute.Required & Attribute.Unique;
+    name: Attribute.String & Attribute.Required & Attribute.Unique;
+    address: Attribute.String;
+    phone: Attribute.String;
+    email: Attribute.String;
+    contact_person: Attribute.String;
+    document: Attribute.Media<'images' | 'files'>;
+    observations: Attribute.Text;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::provider.provider',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::provider.provider',
       'oneToOne',
       'admin::user'
     > &
@@ -894,6 +932,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::articol.articol': ApiArticolArticol;
+      'api::provider.provider': ApiProviderProvider;
       'api::stock.stock': ApiStockStock;
     }
   }

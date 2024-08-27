@@ -4,7 +4,7 @@
   "info": {
     "singularName": "articol",
     "pluralName": "articols",
-    "displayName": "Articol",
+    "displayName": "Article",
     "description": ""
   },
   "options": {
@@ -13,7 +13,9 @@
   "pluginOptions": {},
   "attributes": {
     "denumire": {
-      "type": "string"
+      "type": "string",
+      "unique": true,
+      "required": true
     },
     "descriere": {
       "type": "text"
