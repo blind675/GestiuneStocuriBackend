@@ -18,17 +18,16 @@
       "target": "api::articol.articol",
       "inversedBy": "stocks"
     },
-    "available_quantity": {
-      "type": "decimal"
+    "total_quantity": {
+      "type": "integer"
     },
     "price_per_unit": {
       "type": "decimal"
     },
-    "provider_name": {
-      "type": "string"
-    },
-    "provider_details": {
-      "type": "text"
+    "entries": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::entrie.entrie"
     }
   }
 }

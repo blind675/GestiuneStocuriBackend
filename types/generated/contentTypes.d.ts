@@ -820,6 +820,14 @@ export interface ApiArticolArticol extends Schema.CollectionType {
       'oneToMany',
       'api::stock.stock'
     >;
+    min_quantity: Attribute.Integer &
+      Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      > &
+      Attribute.DefaultTo<15>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -837,12 +845,93 @@ export interface ApiArticolArticol extends Schema.CollectionType {
   };
 }
 
+export interface ApiDocumentDocument extends Schema.CollectionType {
+  collectionName: 'documents';
+  info: {
+    singularName: 'document';
+    pluralName: 'documents';
+    displayName: 'Document';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    type: Attribute.Enumeration<['factura']> & Attribute.DefaultTo<'factura'>;
+    date: Attribute.DateTime;
+    nr: Attribute.String;
+    doc: Attribute.Media<'images' | 'files'>;
+    provider: Attribute.Relation<
+      'api::document.document',
+      'manyToOne',
+      'api::provider.provider'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::document.document',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::document.document',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiEntrieEntrie extends Schema.CollectionType {
+  collectionName: 'entries';
+  info: {
+    singularName: 'entrie';
+    pluralName: 'entries';
+    displayName: 'Entrie';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    article: Attribute.Relation<
+      'api::entrie.entrie',
+      'oneToOne',
+      'api::articol.articol'
+    >;
+    document: Attribute.Relation<
+      'api::entrie.entrie',
+      'oneToOne',
+      'api::document.document'
+    >;
+    price: Attribute.Decimal;
+    quantity: Attribute.Integer;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::entrie.entrie',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::entrie.entrie',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiProviderProvider extends Schema.CollectionType {
   collectionName: 'providers';
   info: {
     singularName: 'provider';
     pluralName: 'providers';
     displayName: 'Provider';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -855,8 +944,13 @@ export interface ApiProviderProvider extends Schema.CollectionType {
     phone: Attribute.String;
     email: Attribute.String;
     contact_person: Attribute.String;
-    document: Attribute.Media<'images' | 'files'>;
+    doc: Attribute.Media<'images' | 'files'>;
     observations: Attribute.Text;
+    documents: Attribute.Relation<
+      'api::provider.provider',
+      'oneToMany',
+      'api::document.document'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -892,10 +986,13 @@ export interface ApiStockStock extends Schema.CollectionType {
       'manyToOne',
       'api::articol.articol'
     >;
-    available_quantity: Attribute.Decimal;
+    total_quantity: Attribute.Integer;
     price_per_unit: Attribute.Decimal;
-    provider_name: Attribute.String;
-    provider_details: Attribute.Text;
+    entries: Attribute.Relation<
+      'api::stock.stock',
+      'oneToMany',
+      'api::entrie.entrie'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -932,6 +1029,8 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::articol.articol': ApiArticolArticol;
+      'api::document.document': ApiDocumentDocument;
+      'api::entrie.entrie': ApiEntrieEntrie;
       'api::provider.provider': ApiProviderProvider;
       'api::stock.stock': ApiStockStock;
     }
