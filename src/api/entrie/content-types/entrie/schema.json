@@ -23,10 +23,12 @@
       "target": "api::document.document"
     },
     "price": {
-      "type": "decimal"
+      "type": "decimal",
+      "required": true
     },
     "quantity": {
-      "type": "integer"
+      "type": "integer",
+      "required": true
     }
   }
 }

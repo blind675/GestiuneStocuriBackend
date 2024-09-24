@@ -900,8 +900,8 @@ export interface ApiEntrieEntrie extends Schema.CollectionType {
       'oneToOne',
       'api::document.document'
     >;
-    price: Attribute.Decimal;
-    quantity: Attribute.Integer;
+    price: Attribute.Decimal & Attribute.Required;
+    quantity: Attribute.Integer & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
