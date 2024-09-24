@@ -51,12 +51,6 @@
         "images"
       ]
     },
-    "stocks": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::stock.stock",
-      "mappedBy": "articol"
-    },
     "min_quantity": {
       "type": "integer",
       "default": 15,

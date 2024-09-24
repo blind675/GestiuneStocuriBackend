@@ -14,9 +14,8 @@
   "attributes": {
     "articol": {
       "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::articol.articol",
-      "inversedBy": "stocks"
+      "relation": "oneToOne",
+      "target": "api::articol.articol"
     },
     "total_quantity": {
       "type": "integer"

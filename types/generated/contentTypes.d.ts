@@ -815,11 +815,6 @@ export interface ApiArticolArticol extends Schema.CollectionType {
       ]
     >;
     imagine: Attribute.Media<'images'>;
-    stocks: Attribute.Relation<
-      'api::articol.articol',
-      'oneToMany',
-      'api::stock.stock'
-    >;
     min_quantity: Attribute.Integer &
       Attribute.SetMinMax<
         {
@@ -854,7 +849,7 @@ export interface ApiDocumentDocument extends Schema.CollectionType {
     description: '';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     type: Attribute.Enumeration<['factura']> & Attribute.DefaultTo<'factura'>;
@@ -868,7 +863,6 @@ export interface ApiDocumentDocument extends Schema.CollectionType {
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
       'api::document.document',
       'oneToOne',
@@ -890,9 +884,10 @@ export interface ApiEntrieEntrie extends Schema.CollectionType {
     singularName: 'entrie';
     pluralName: 'entries';
     displayName: 'Entrie';
+    description: '';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     article: Attribute.Relation<
@@ -909,7 +904,6 @@ export interface ApiEntrieEntrie extends Schema.CollectionType {
     quantity: Attribute.Integer;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
       'api::entrie.entrie',
       'oneToOne',
@@ -934,7 +928,7 @@ export interface ApiProviderProvider extends Schema.CollectionType {
     description: '';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     CUI: Attribute.String & Attribute.Required & Attribute.Unique;
@@ -953,7 +947,6 @@ export interface ApiProviderProvider extends Schema.CollectionType {
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
       'api::provider.provider',
       'oneToOne',
@@ -983,7 +976,7 @@ export interface ApiStockStock extends Schema.CollectionType {
   attributes: {
     articol: Attribute.Relation<
       'api::stock.stock',
-      'manyToOne',
+      'oneToOne',
       'api::articol.articol'
     >;
     total_quantity: Attribute.Integer;

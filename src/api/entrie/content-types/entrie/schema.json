@@ -4,10 +4,11 @@
   "info": {
     "singularName": "entrie",
     "pluralName": "entries",
-    "displayName": "Entrie"
+    "displayName": "Entrie",
+    "description": ""
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
