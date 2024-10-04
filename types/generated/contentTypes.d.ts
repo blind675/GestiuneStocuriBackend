@@ -919,6 +919,78 @@ export interface ApiEntrieEntrie extends Schema.CollectionType {
   };
 }
 
+export interface ApiIngredientIngredient extends Schema.CollectionType {
+  collectionName: 'ingredients';
+  info: {
+    singularName: 'ingredient';
+    pluralName: 'ingredients';
+    displayName: 'Ingredient';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    article: Attribute.Relation<
+      'api::ingredient.ingredient',
+      'oneToOne',
+      'api::articol.articol'
+    >;
+    quantity: Attribute.Decimal & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::ingredient.ingredient',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::ingredient.ingredient',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiProductProduct extends Schema.CollectionType {
+  collectionName: 'products';
+  info: {
+    singularName: 'product';
+    pluralName: 'products';
+    displayName: 'Product';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    recipy: Attribute.Relation<
+      'api::product.product',
+      'oneToOne',
+      'api::recipy.recipy'
+    >;
+    units: Attribute.Integer;
+    add_to_inventory: Attribute.Boolean;
+    unit_sale_price: Attribute.Decimal;
+    unit_cost: Attribute.Decimal;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::product.product',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::product.product',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiProviderProvider extends Schema.CollectionType {
   collectionName: 'providers';
   info: {
@@ -955,6 +1027,42 @@ export interface ApiProviderProvider extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::provider.provider',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiRecipyRecipy extends Schema.CollectionType {
+  collectionName: 'recipies';
+  info: {
+    singularName: 'recipy';
+    pluralName: 'recipies';
+    displayName: 'Recipy';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required & Attribute.Unique;
+    description: Attribute.Text;
+    ingredients: Attribute.Relation<
+      'api::recipy.recipy',
+      'oneToMany',
+      'api::ingredient.ingredient'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::recipy.recipy',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::recipy.recipy',
       'oneToOne',
       'admin::user'
     > &
@@ -1024,7 +1132,10 @@ declare module '@strapi/types' {
       'api::articol.articol': ApiArticolArticol;
       'api::document.document': ApiDocumentDocument;
       'api::entrie.entrie': ApiEntrieEntrie;
+      'api::ingredient.ingredient': ApiIngredientIngredient;
+      'api::product.product': ApiProductProduct;
       'api::provider.provider': ApiProviderProvider;
+      'api::recipy.recipy': ApiRecipyRecipy;
       'api::stock.stock': ApiStockStock;
     }
   }

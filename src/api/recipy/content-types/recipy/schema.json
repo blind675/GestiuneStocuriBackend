@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "recipies",
+  "info": {
+    "singularName": "recipy",
+    "pluralName": "recipies",
+    "displayName": "Recipy",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "ingredients": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::ingredient.ingredient"
+    }
+  }
+}

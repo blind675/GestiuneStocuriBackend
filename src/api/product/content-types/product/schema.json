@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "products",
+  "info": {
+    "singularName": "product",
+    "pluralName": "products",
+    "displayName": "Product"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "recipy": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::recipy.recipy"
+    },
+    "units": {
+      "type": "integer"
+    },
+    "add_to_inventory": {
+      "type": "boolean"
+    },
+    "unit_sale_price": {
+      "type": "decimal"
+    },
+    "unit_cost": {
+      "type": "decimal"
+    }
+  }
+}
